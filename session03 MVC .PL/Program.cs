@@ -1,3 +1,4 @@
+using IKEA.BLL.Services.Department;
 using IKEA.DAL.Contexts;
 using IKEA.DAL.Reposatories.DepartmentReposatory;
 using Microsoft.EntityFrameworkCore;
@@ -21,6 +22,9 @@ namespace session03_MVC_.PL
            
             builder.Services.AddScoped<IDepartmentRepo,DepartmentRepo>();//inject the repo to be used in the service layer
             //ay 7d ytlob IDepartmentRepo 5leh ygeb DepartmentRepo
+
+
+            builder.Services.AddScoped<IDepartmentService,DepartmentServices>();//inject the service to be used in the controller layer
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

@@ -53,9 +53,12 @@ namespace IKEA.DAL.Reposatories.DepartmentReposatory
 
         public int Delete(int id)
         {
+            
             _context.Departments.Remove(GetById(id));
             return _context.SaveChanges();//return number of affected rows
         }
+
+
 
        
 

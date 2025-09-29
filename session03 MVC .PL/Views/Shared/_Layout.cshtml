@@ -9,6 +9,14 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/session03_MVC_.PL.styles.css" asp-append-version="true" />
 </head>
+<style>
+    body 
+    {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+</style>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
@@ -26,6 +34,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Department" asp-action="Index">Department</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -36,13 +47,12 @@
             @RenderBody()
         </main>
     </div>
-    <div class="d-flex ">
-        <footer class="border-top footer text-muted align-baseline align-items-center">
-            <div class="container">
-                &copy; 2025 - session03_MVC_.PL - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-            </div>
-        </footer>
-    </div>
+    <footer class="border-top footer text-muted text-center">
+        <div class="container">
+            &copy; 2025 - session03_MVC_.PL -
+            <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
    
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
