@@ -1,6 +1,9 @@
+using IKEA.BLL.Common.MappingProfiles;
 using IKEA.BLL.Services.Department;
+using IKEA.BLL.Services.Employee;
 using IKEA.DAL.Contexts;
 using IKEA.DAL.Reposatories.DepartmentReposatory;
+using IKEA.DAL.Reposatories.EmployeeReposatory;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
@@ -25,6 +28,14 @@ namespace session03_MVC_.PL
 
 
             builder.Services.AddScoped<IDepartmentService,DepartmentServices>();//inject the service to be used in the controller layer
+
+
+            builder.Services.AddScoped<IEmployeeRepo,EmployeeRepo>();//inject the repo to be used in the service layer
+            //ay 7d ytlob IDepartmentRepo 5leh ygeb EmployeeRepo
+            builder.Services.AddScoped<IEmployeeService,EmployeeService>();
+
+            builder.Services.AddAutoMapper(m => m.AddMaps(typeof( ProjectMapperProfile).Assembly));
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

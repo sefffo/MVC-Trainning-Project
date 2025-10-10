@@ -1,4 +1,5 @@
 ﻿using IKEA.DAL.Contexts;
+using IKEA.DAL.Reposatories.GenericReposatory;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace IKEA.DAL.Reposatories.DepartmentReposatory
 {
-    public class DepartmentRepo:IDepartmentRepo
+    public class DepartmentRepo: GenericRepo<Department>,IDepartmentRepo
     {
         //we dont make the context as a field in the class to avoid memory leaks
         //we use dependency injection in the service layer to manage the context life cycle
@@ -17,7 +18,8 @@ namespace IKEA.DAL.Reposatories.DepartmentReposatory
 
         private readonly APPDbContext _context;
 
-        public DepartmentRepo(APPDbContext Context)//inject the context
+        public DepartmentRepo(APPDbContext Context):base(Context) //oop serffff enta lazem t3rf elchild eno yshof el parent 
+            //inject the context
         {
             _context = Context;
         }
@@ -27,7 +29,7 @@ namespace IKEA.DAL.Reposatories.DepartmentReposatory
             {
                 return _context.Departments.ToList();
             }
-            else
+            else 
             {
                 return _context.Departments.AsNoTracking().ToList();
             }

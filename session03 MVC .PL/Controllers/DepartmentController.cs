@@ -223,7 +223,6 @@ namespace session03_MVC_.PL.Controllers
 
         [HttpPost]
         //fucking hard delete 
- 
         public IActionResult Delete([FromRoute] int id)
         {
             var message = string.Empty;

@@ -1,0 +1,71 @@
+﻿@model IEnumerable<EmployeeDto>
+@{
+	ViewData["Title"] = "Index";
+}
+
+
+<div class="card border border-primary">
+	<div class="card-header bg-primary">
+		<h1 class="text-white">All Employees</h1>
+	</div>
+	<div class="card-body">
+		<a class="btn btn-success mb-3" asp-action="Create">Create New Employee</a>
+		@if (Model.Any())
+		{
+			<table class="table table-striped table-hover mt-3">
+				<thead class="text-center">
+					<tr>
+						<th>@Html.DisplayNameFor(e => e.Name)</th>
+						<th>@Html.DisplayNameFor(e => e.Email)</th>
+						<th>@Html.DisplayNameFor(e => e.EmployeeType)</th>
+						<th>@Html.DisplayNameFor(e => e.Age)</th>
+						<th>@Html.DisplayNameFor(e => e.Salary)</th>
+						<th>@Html.DisplayNameFor(e => e.IsActive)</th>
+						<th>@Html.DisplayNameFor(e => e.Gender)</th>
+						<th>Details </th>
+						<th>Update</th>
+						<th>Delete</th>
+					</tr>
+				</thead>
+				<tbody class="text-center">
+					@foreach (var employee in Model)
+					{
+						<tr>
+
+							<td>@employee.Name</td>
+							<td>@employee.Email</td>
+							<td>@employee.EmployeeType</td>
+							<td>@employee.Age</td>
+							<td>@employee.Salary</td>
+							<td>@employee.IsActive</td>
+							<td>@employee.Gender</td>
+
+							<td>
+								<a class="btn btn-primary" asp-action="Details" asp-route-id="@employee.Id">
+									<i class="fas fa-eye"></i> Details
+								</a>
+							</td>
+							<td>
+								<a class="btn btn-success" asp-action="Update" asp-route-id="@employee.Id">
+									<i class="fas fa-edit"></i> Update
+								</a>
+							</td>
+							<td>
+								<a class="btn btn-danger" asp-action="Delete" asp-controller="Employee" asp-route-id="@employee.Id">
+									<i class="fas fa-trash"></i> Delete
+								</a>
+							</td>
+
+						</tr>
+					}
+				</tbody>
+			</table>
+		}
+		else
+		{
+			<div class="alert alert-info">
+				<h2>No Employees Found</h2>
+			</div>
+		}
+	</div>
+</div>

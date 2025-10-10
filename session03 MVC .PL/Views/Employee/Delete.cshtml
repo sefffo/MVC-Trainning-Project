@@ -1,0 +1,96 @@
+﻿@model IKEA.BLL.Dto_s.EmployeeDto_s.EmployeeDetailsDto
+@{
+    ViewData["Title"] = "Delete Employee";
+}
+
+<div class="card border border-danger my-4">
+    <div class="card-header bg-danger text-white">
+        <h1>Are you sure you want to delete employee: <strong>@Model.Name</strong>?</h1>
+    </div>
+
+    <div class="card-body">
+
+        <ul class="nav nav-tabs" id="employeeTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <a class="nav-link active" id="general-tab" data-bs-toggle="tab" href="#general" role="tab" aria-controls="general" aria-selected="true">General</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" id="administration-tab" data-bs-toggle="tab" href="#administration" role="tab" aria-controls="administration" aria-selected="false">Administration</a>
+            </li>
+        </ul>
+
+        <div class="tab-content mt-3" id="myTabContent">
+            <!-- General Tab Content -->
+            <div class="tab-pane fade show active p-4 border" id="general" role="tabpanel" aria-labelledby="general-tab">
+                <div class="row">
+                    <div class="form-group col-6">
+                        <label asp-for="Name" class="col-form-label"></label>
+                        <input asp-for="Name" class="form-control" readonly />
+                    </div>
+                    <div class="form-group col-6">
+                        <label asp-for="Age" class="col-form-label"></label>
+                        <input asp-for="Age" class="form-control" readonly />
+                    </div>
+                    <div class="form-group col-6">
+                        <label asp-for="Salary" class="col-form-label"></label>
+                        <input asp-for="Salary" class="form-control" readonly />
+                    </div>
+                    <div class="form-group col-6">
+                        <label asp-for="Email" class="col-form-label"></label>
+                        <input asp-for="Email" class="form-control" readonly />
+                    </div>
+                    <div class="form-group col-6">
+                        <label asp-for="PhoneNumber" class="col-form-label"></label>
+                        <input asp-for="PhoneNumber" class="form-control" readonly />
+                    </div>
+                    <div class="form-group col-6">
+                        <label asp-for="HiringDate" class="col-form-label"></label>
+                        <input asp-for="HiringDate" class="form-control" readonly />
+                    </div>
+                    <div class="form-group col-6">
+                        <label asp-for="Gender" class="col-form-label"></label>
+                        <input asp-for="Gender" class="form-control" readonly />
+                    </div>
+                    <div class="form-group col-6">
+                        <label asp-for="EmployeeType" class="col-form-label"></label>
+                        <input asp-for="EmployeeType" class="form-control" readonly />
+                    </div>
+                    <div class="form-group col-6">
+                        <label asp-for="IsActive" class="col-form-label"></label>
+                        <input asp-for="IsActive" class="form-control" readonly />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Administration Tab Content -->
+            <div class="tab-pane fade p-4 border" id="administration" role="tabpanel" aria-labelledby="administration-tab">
+                <div class="form-group col-6">
+                    <label asp-for="createdBy" class="col-form-label"></label>
+                    <input asp-for="createdBy" class="form-control" readonly />
+                </div>
+                <div class="form-group col-6">
+                    <label class="col-form-label">Created On</label>
+                    <input asp-for="CreatedOn" class="form-control" readonly />
+                </div>
+                <div class="form-group col-6">
+                    <label asp-for="updatedBy" class="col-form-label"></label>
+                    <input asp-for="updatedBy" class="form-control" readonly />
+                </div>
+                <div class="form-group col-6">
+                    <label asp-for="UpdatedOn" class="col-form-label"></label>
+                    <input asp-for="UpdatedOn" class="form-control" readonly />
+                </div>
+            </div>
+        </div>
+
+        <!-- Delete Form -->
+        <div class="mt-4">
+            <form asp-action="DeleteConfirmed" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="Id" />
+                <button type="submit" class="btn btn-danger">Delete Employee</button>
+                <a asp-action="Index" class="btn btn-outline-dark">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
