@@ -24,6 +24,10 @@ namespace session03_MVC_.PL.Controllers
         // we cant do that because the service need the repo so we use dependency injection
         public IActionResult Index()
         {
+            ViewData["Message"] = "Hi from viewData"; //more for storing the data in a va inside the view only for once 
+
+            ViewBag.messages = "Hi from viewBag"; //only for viewing data 
+
             var depts = _departmentService.GetAllDepartments();
             return View(depts);
         }
@@ -50,6 +54,8 @@ namespace session03_MVC_.PL.Controllers
                     int res = _departmentService.AddDepartment(dto);
                     if (res > 0)
                     {
+
+                        TempData["Message"] = $"Department {vm.Name} created successfully";
                         return RedirectToAction("Index"); //if its valid return to the same page 
 
                     }
@@ -61,7 +67,12 @@ namespace session03_MVC_.PL.Controllers
 
                 }
                 else
+                {
+
+                    TempData["Message"] = $"Department {vm.Name} could not be created successfully";
                     return View(vm); //give the same data in the inputs and gives the error msg 
+
+                }
             }
             catch (Exception ex)
             {

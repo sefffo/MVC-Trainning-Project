@@ -15,6 +15,11 @@ namespace IKEA.DAL.Configrations
             D.Property(d=>d.CreatedOn).HasDefaultValueSql("GETDATE()");
             D.Property(d => d.UpdatedOn).HasComputedColumnSql("GETDATE()");//every time update happen the column affected 
 
+            D.HasMany(d => d.Employees)
+                .WithOne(e => e.Department)
+                .HasForeignKey(e=>e.DepartmentID)
+                .OnDelete(DeleteBehavior.SetNull);
+
 
         }
     }

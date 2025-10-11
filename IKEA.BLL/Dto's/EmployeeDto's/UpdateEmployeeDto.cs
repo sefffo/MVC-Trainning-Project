@@ -35,7 +35,13 @@ namespace IKEA.BLL.Dto_s.EmployeeDto_s
         public string Gender { get; set; }
 
         public string EmployeeType { get; set; }
+
+
+        //relation
+
+
+        public int? DepartmentId { get; set; }
     }
 
- 
+
 }

@@ -32,5 +32,12 @@ namespace IKEA.BLL.Dto_s.EmployeeDto_s
         public DateOnly HiringDate { get; set; }
         public Gender Gender { get; set; }
         public EmployeeType EmployeeType { get; set; }
+
+
+
+        //relation
+
+
+        public int ? DepartmentId { get; set; }
     }
 }

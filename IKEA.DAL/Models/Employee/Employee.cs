@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using IKEA.DAL.Models.Department;
 
 namespace IKEA.DAL.Models.Employee
 {
@@ -20,6 +21,13 @@ namespace IKEA.DAL.Models.Employee
         public DateOnly HiringDate { get; set; }
         public EmployeeType EmployeeType { get; set; }
         public Gender Gender { get; set; }
+
+        public IKEA.DAL.Models.Department.Department Department { get; set; }
+
+
+        // el 3rd bta3o
+
+        public int? DepartmentID { get; set; }
 
     }
 }
