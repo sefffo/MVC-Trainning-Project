@@ -34,13 +34,19 @@ namespace session03_MVC_.PL.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Create(CreateDepartmentDto dto)
+        public IActionResult Create(DepartmentVm vm)
         {
 
             try
             {
                 if (ModelState.IsValid)
                 {
+                    var dto = new CreateDepartmentDto
+                    {
+                        Name = vm.Name,
+                        code = vm.code,
+                        description = vm.description
+                    };
                     int res = _departmentService.AddDepartment(dto);
                     if (res > 0)
                     {
@@ -50,12 +56,12 @@ namespace session03_MVC_.PL.Controllers
                     else
                     {
                         ModelState.AddModelError(string.Empty, "dept cant be created");
-                        return View(dto);
+                        return View(vm);
                     }
 
                 }
                 else
-                    return View(dto); //give the same data in the inputs and gives the error msg 
+                    return View(vm); //give the same data in the inputs and gives the error msg 
             }
             catch (Exception ex)
             {
@@ -72,7 +78,7 @@ namespace session03_MVC_.PL.Controllers
                 {
                     //production 
                 }
-                return View(dto);
+                return View(vm);
             }
 
         }

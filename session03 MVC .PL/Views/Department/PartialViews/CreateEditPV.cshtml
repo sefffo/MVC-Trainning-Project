@@ -1,0 +1,22 @@
+﻿@using session03_MVC_.PL.ViewModels.DepartmentsVms
+
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model DepartmentVm
+
+<div class="form-group mb-3">
+    <label class="form-label" asp-for="code"></label>
+    <input asp-for="code" class="form-control" />
+    <span asp-validation-for="code" class="text-danger"></span>
+</div>
+<div class="form-group mb-3">
+    <label class="form-label" asp-for="Name"></label>
+    <input asp-for="Name" class="form-control" />
+    <span asp-validation-for="Name" class="text-danger"></span>
+</div>
+<div class="form-group mb-3">
+    <label class="form-label" asp-for="description"></label>
+    <textarea class="form-control" asp-for="description" cols="12" rows="12"></textarea>
+</div>

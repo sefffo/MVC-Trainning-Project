@@ -33,7 +33,7 @@
                             <td>@Item.Name</td>
                             <td>@Item.code</td>
                             <td>@Item.description</td>
-                            <td>
+                            @* <td>
                                 <a class="btn btn-primary" asp-action="Details" asp-route-Id="@Item.Id">
                                     <i class="fas fa-eye"></i> Details
                                 </a>
@@ -43,7 +43,9 @@
                             </td>
                             <td>
                                 <a class="btn btn-danger" asp-action="Delete" asp-route-Id="@Item.Id"><i class="fas fa-trash"></i>Delete</a>
-                            </td>
+                            </td> *@
+
+                            <partial name="_ButtonsPartialViews"  model="@Item.Id" />
 
                         </tr>
                     }

@@ -1,4 +1,7 @@
-﻿@model CreateDepartmentDto
+﻿@using session03_MVC_.PL.ViewModels.DepartmentsVms
+@model DepartmentVm
+
+
 @{
 	ViewData["Title"] = "Create";
 }
@@ -9,7 +12,7 @@
 	</div>
 	<div class="card-body">
 		<form asp-action="Create" method="post"> @* form uses post method *@
-			
+			@* 
 			<div class="form-group mb-3">
 				<label class="form-label" asp-for="code"></label>
 				<input asp-for="code" class="form-control" />
@@ -23,7 +26,11 @@
 			<div class="form-group mb-3">
 				<label class="form-label" asp-for="description"></label>
 				<textarea class="form-control" asp-for="description" cols="12" rows="12"></textarea>
-			</div>
+			</div> *@
+
+
+			<partial name="PartialViews/CreateEditPV" model="@Model" />
+
 			<div asp-validation-summary="All"></div>
 			<div class="mt-4 m-auto">
 				<input class="btn btn-primary" type="submit" value="Create Department" />
