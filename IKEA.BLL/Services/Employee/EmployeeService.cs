@@ -24,9 +24,23 @@ namespace IKEA.BLL.Services.Employee
 
         public IEnumerable<EmployeeDto> GetAllEmployees()
         {
-            var Employees = _EmpRepo.GetAll();
-            var mappedEmployees = Mapper.Map<IEnumerable<IKEA.DAL.Models.Employee.Employee>,IEnumerable<EmployeeDto>>(Employees);//ostor yarb
-            return mappedEmployees; 
+            var Employees = _EmpRepo.GetAll().ToList();//bmshy haly 
+            var mappedEmployees = Mapper.Map<IEnumerable<IKEA.DAL.Models.Employee.Employee>, IEnumerable<EmployeeDto>>(Employees);//ostor yarb
+            return mappedEmployees;
+
+            //var Result = _EmpRepo.GetAllEnum().Where(x => x.isDeleted != true).Select(e => new EmployeeDto
+            //{
+            //    Id = e.id,
+            //    Name = e.Name,
+            //    Age = e.Age,
+            //}); //the where will run in the excution time it will filter after it feactches all the employeees 
+            //var Result = _EmpRepo.GetAllQuer().Where(x => x.isDeleted != true).Select(e => new EmployeeDto
+            //{
+            //    Id = e.id,
+            //    Name = e.Name,
+            //    Age = e.Age,
+            //});
+            //return Result.ToList(); 
         }
 
         public EmployeeDetailsDto GetEmployeeById(int id)

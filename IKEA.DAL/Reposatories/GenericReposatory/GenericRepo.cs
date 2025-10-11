@@ -18,16 +18,18 @@ namespace IKEA.DAL.Reposatories.GenericReposatory
         {
             _context = context;
         }
-
-        public IEnumerable<TEntity> GetAll(bool withTracking = false)
+        
+        
+        //we made the refactor here bec it has to be done with the layer that acts with data been fetched in the database 
+        public IQueryable<TEntity> GetAll(bool withTracking = false)
         {
             if (withTracking == true)
             {
-                return _context.Set<TEntity>().ToList();
+                return _context.Set<TEntity>().Where(e=>e.isDeleted!=true);
             }
             else
             {
-                return _context.Set<TEntity>().AsNoTracking().ToList();
+                return _context.Set<TEntity>().AsNoTracking().Where(e => e.isDeleted != true);
             }
         }
 
@@ -55,6 +57,14 @@ namespace IKEA.DAL.Reposatories.GenericReposatory
         }
 
 
+        public IEnumerable<TEntity> GetAllEnum()
+        {
+            return _context.Set<TEntity>();
+        }
+        public IQueryable<TEntity> GetAllQuer()
+        {
+            return _context.Set<TEntity>();
+        }
 
 
     }

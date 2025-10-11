@@ -27,7 +27,7 @@ namespace IKEA.BLL.Services.Department
         public IEnumerable<DepartmentDto> GetAllDepartments()
         {
              
-           var departments = _DeptRepo.GetAll();
+           var departments = _DeptRepo.GetAll().ToList();
             // manually mapping
             //var mapppedDepartments = departments.Select(d => new DepartmentDto
             //{

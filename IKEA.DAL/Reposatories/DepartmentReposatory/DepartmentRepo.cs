@@ -23,15 +23,15 @@ namespace IKEA.DAL.Reposatories.DepartmentReposatory
         {
             _context = Context;
         }
-        public IEnumerable<Department> GetAll(bool withTracking = false)//by default without tracking
+        public IQueryable<Department> GetAll(bool withTracking = false)//by default without tracking
         {
             if(withTracking==true)
             {
-                return _context.Departments.ToList();
+                return _context.Departments.Where(d=>d.isDeleted!=true);
             }
             else 
             {
-                return _context.Departments.AsNoTracking().ToList();
+                return _context.Departments.AsNoTracking().Where(d => d.isDeleted != true);
             }
         }
 

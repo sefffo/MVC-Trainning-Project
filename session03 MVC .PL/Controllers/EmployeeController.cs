@@ -77,8 +77,6 @@ namespace session03_MVC_.PL.Controllers
 
         }
 
-
-
         [HttpGet]
         public IActionResult Details([FromRoute] int? id)
         {
@@ -117,7 +115,6 @@ namespace session03_MVC_.PL.Controllers
             };
             return View(viewEmployee);
         }
-
 
         //POST: Handle form submission
         [HttpPost]
@@ -186,7 +183,6 @@ namespace session03_MVC_.PL.Controllers
             }
 
         }
-
 
 
         ////[HttpGet]
