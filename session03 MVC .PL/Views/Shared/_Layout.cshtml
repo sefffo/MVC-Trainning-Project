@@ -60,6 +60,8 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+    @* el ahsn await  *@
+    @* @await RenderSectionAsync("Scripts", required: false) *@ 
+    @RenderSection("validationSection",required:false); @*3shan myrg3sh error en kol el safhat mhtaga el validation *@
 </body>
 </html>
