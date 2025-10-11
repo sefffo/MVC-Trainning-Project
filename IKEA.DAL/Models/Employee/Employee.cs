@@ -22,12 +22,12 @@ namespace IKEA.DAL.Models.Employee
         public EmployeeType EmployeeType { get; set; }
         public Gender Gender { get; set; }
 
-        public IKEA.DAL.Models.Department.Department Department { get; set; }
+        public virtual IKEA.DAL.Models.Department.Department Department { get; set; } //ref el relation
 
 
         // el 3rd bta3o
 
-        public int? DepartmentID { get; set; }
+        public  int? DepartmentID { get; set; }
 
     }
 }

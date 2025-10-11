@@ -1,5 +1,6 @@
 ﻿using IKEA.BLL.Dto_s.DepartmentsDto_s;
 using IKEA.BLL.Dto_s.EmployeeDto_s;
+using IKEA.BLL.Services.Department;
 using IKEA.BLL.Services.Employee;
 using IKEA.DAL.Models.Employee;
 using IKEA.DAL.Reposatories.EmployeeReposatory;
@@ -14,12 +15,14 @@ namespace session03_MVC_.PL.Controllers
         private readonly IEmployeeService service;
         private readonly ILogger logger;
         private readonly IWebHostEnvironment webHost;
+        //private readonly IDepartmentService deptService;
 
-        public EmployeeController(IEmployeeService service, ILogger<EmployeeController> logger, IWebHostEnvironment webHost)
+        public EmployeeController(IEmployeeService service, ILogger<EmployeeController> logger, IWebHostEnvironment webHost, IDepartmentService DeptService)
         {
             this.service = service;
             this.logger = logger;
             this.webHost = webHost;
+            //deptService = DeptService;
         }
         public IActionResult Index()
         {
@@ -30,6 +33,7 @@ namespace session03_MVC_.PL.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+            //ViewData["Departments"] = deptService.GetAllDepartments(); //3shan ageeb el departments w a3redhom 
             return View();
         }
 

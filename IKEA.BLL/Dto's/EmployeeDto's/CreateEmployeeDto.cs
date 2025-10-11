@@ -37,7 +37,7 @@ namespace IKEA.BLL.Dto_s.EmployeeDto_s
 
         //relation
 
-
+        [Display(Name = "Department")] //only for the label 
         public int ? DepartmentId { get; set; }
     }
 }

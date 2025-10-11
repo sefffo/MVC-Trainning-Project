@@ -100,7 +100,7 @@ namespace session03_MVC_.PL
             {
 
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));//3shan ygeb el connection string mn el appsettings.json
-                                                                                                     //it will be more flexiable too for test and production 
+                options.UseLazyLoadingProxies();                                                                       //it will be more flexiable too for test and production 
             });
 
             builder.Services.AddScoped<IDepartmentRepo, DepartmentRepo>();//inject the repo to be used in the service layer
