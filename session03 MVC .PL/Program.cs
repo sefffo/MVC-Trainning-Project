@@ -94,7 +94,7 @@ namespace session03_MVC_.PL
 
             // Add services to the container.
             builder.Services.AddControllersWithViews(
-                Options => Options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute)
+                Options => Options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute())
                 );
             builder.Services.AddDbContext<APPDbContext>(options =>
             {
