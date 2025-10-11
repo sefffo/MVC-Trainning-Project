@@ -4,6 +4,7 @@ using IKEA.BLL.Services.Employee;
 using IKEA.DAL.Contexts;
 using IKEA.DAL.Reposatories.DepartmentReposatory;
 using IKEA.DAL.Reposatories.EmployeeReposatory;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
@@ -92,25 +93,28 @@ namespace session03_MVC_.PL
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            builder.Services.AddControllersWithViews();
-            builder.Services.AddDbContext<APPDbContext>(options=> {
-            
+            builder.Services.AddControllersWithViews(
+                Options => Options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute)
+                );
+            builder.Services.AddDbContext<APPDbContext>(options =>
+            {
+
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));//3shan ygeb el connection string mn el appsettings.json
-                                                                                //it will be more flexiable too for test and production 
+                                                                                                     //it will be more flexiable too for test and production 
             });
-           
-            builder.Services.AddScoped<IDepartmentRepo,DepartmentRepo>();//inject the repo to be used in the service layer
+
+            builder.Services.AddScoped<IDepartmentRepo, DepartmentRepo>();//inject the repo to be used in the service layer
             //ay 7d ytlob IDepartmentRepo 5leh ygeb DepartmentRepo
 
 
-            builder.Services.AddScoped<IDepartmentService,DepartmentServices>();//inject the service to be used in the controller layer
+            builder.Services.AddScoped<IDepartmentService, DepartmentServices>();//inject the service to be used in the controller layer
 
 
-            builder.Services.AddScoped<IEmployeeRepo,EmployeeRepo>();//inject the repo to be used in the service layer
+            builder.Services.AddScoped<IEmployeeRepo, EmployeeRepo>();//inject the repo to be used in the service layer
             //ay 7d ytlob IDepartmentRepo 5leh ygeb EmployeeRepo
-            builder.Services.AddScoped<IEmployeeService,EmployeeService>();
+            builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 
-            builder.Services.AddAutoMapper(m => m.AddMaps(typeof( ProjectMapperProfile).Assembly));
+            builder.Services.AddAutoMapper(m => m.AddMaps(typeof(ProjectMapperProfile).Assembly));
 
             var app = builder.Build();
 
@@ -130,7 +134,7 @@ namespace session03_MVC_.PL
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
-               
+
 
             app.Run();
         }

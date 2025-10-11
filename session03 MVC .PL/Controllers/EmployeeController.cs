@@ -34,6 +34,7 @@ namespace session03_MVC_.PL.Controllers
         }
 
         [HttpPost]
+        //[ValidateAntiForgeryToken]//action filter
         public IActionResult Create(CreateEmployeeDto dto)
         {
 
@@ -118,6 +119,7 @@ namespace session03_MVC_.PL.Controllers
 
         //POST: Handle form submission
         [HttpPost]
+        //[ValidateAntiForgeryToken]
         public IActionResult Update([FromRoute] int? id, UpdateEmployeeDto emp)
         {
             if (id == null)
@@ -248,7 +250,7 @@ namespace session03_MVC_.PL.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
         {
             try
