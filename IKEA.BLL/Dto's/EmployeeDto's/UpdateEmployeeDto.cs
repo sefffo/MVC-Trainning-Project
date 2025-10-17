@@ -5,14 +5,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using IKEA.DAL.Models.Employee;
+using Microsoft.AspNetCore.Http;
 
 namespace IKEA.BLL.Dto_s.EmployeeDto_s
 {
- 
+
     public class UpdateEmployeeDto
     {
         public int Id { get; set; }
-        [Required (ErrorMessage ="Name is Requierd")]
+        [Required(ErrorMessage = "Name is Requierd")]
         [MaxLength(50, ErrorMessage = "Max length should be 50 character")]
         [MinLength(5, ErrorMessage = "Min length should be 5 characters")]
         public string Name { get; set; } = null!;
@@ -22,7 +23,7 @@ namespace IKEA.BLL.Dto_s.EmployeeDto_s
         //   ErrorMessage = "Address must be like 123-Street-City-Country")]
         public string? Address { get; set; }
         [DataType(DataType.Currency)]
-        public decimal Salary { get; set; }
+        public int Salary { get; set; }
         [Display(Name = "Is Active")]
         public bool IsActive { get; set; }
         [EmailAddress]
@@ -35,6 +36,16 @@ namespace IKEA.BLL.Dto_s.EmployeeDto_s
         public string Gender { get; set; }
 
         public string EmployeeType { get; set; }
+        //attachments 
+
+
+        //public string ImageName { get; set; }
+
+
+        //public IFormFile image { get; set; }
+
+
+
 
 
         //relation

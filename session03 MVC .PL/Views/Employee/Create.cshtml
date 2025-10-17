@@ -47,6 +47,11 @@
             <span asp-validation-for="HiringDate" class="text-danger"></span>
         </div>
         <div class="form-group mb-3 col-6">
+            <label class="form-label" asp-for="image"></label>
+            <input type="file" asp-for="image" class="form-control" />
+            @* <span asp-validation-for="HiringDate" class="text-danger"></span> *@
+        </div>
+        <div class="form-group mb-3 col-6">
             <label class="form-label" asp-for="Salary"></label>
             <input asp-for="Salary" class="form-control" />
             <span asp-validation-for="Salary" class="text-danger"></span>

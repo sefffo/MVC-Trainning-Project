@@ -29,5 +29,15 @@ namespace IKEA.DAL.Models.Employee
 
         public  int? DepartmentID { get; set; }
 
+
+
+
+        //attachments 
+
+        public string ImageName {  get; set; }
+
+
+
+
     }
 }

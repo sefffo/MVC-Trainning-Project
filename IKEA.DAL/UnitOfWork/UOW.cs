@@ -18,6 +18,8 @@ namespace IKEA.DAL.UnitOfWork
         {
             this.context = context;
             //3shan lazem lw geet aklm el uow 3shan st5dm el repo f aklem el context 
+
+            //theres is a better implementation 
             employeeRepo = new EmployeeRepo(context);
             departmentRepo = new DepartmentRepo(context);
         }

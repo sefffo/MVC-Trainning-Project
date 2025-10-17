@@ -1,4 +1,5 @@
 ﻿using IKEA.DAL.Models.Employee;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -32,6 +33,13 @@ namespace IKEA.BLL.Dto_s.EmployeeDto_s
         public DateOnly HiringDate { get; set; }
         public Gender Gender { get; set; }
         public EmployeeType EmployeeType { get; set; }
+
+        //attachments 
+
+
+
+        public IFormFile image { get; set; }
+
 
 
 

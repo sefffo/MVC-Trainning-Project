@@ -1,4 +1,5 @@
 using IKEA.BLL.Common.MappingProfiles;
+using IKEA.BLL.Common.Servicies.Attachments;
 using IKEA.BLL.Services.Department;
 using IKEA.BLL.Services.Employee;
 using IKEA.DAL.Contexts;
@@ -123,6 +124,8 @@ namespace session03_MVC_.PL
             //ay 7d ytlob IDepartmentRepo 5leh ygeb EmployeeRepo
             builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 
+
+            builder.Services.AddScoped<IAttachmentService, Attachment>();
             builder.Services.AddAutoMapper(m => m.AddMaps(typeof(ProjectMapperProfile).Assembly));
 
             var app = builder.Build();

@@ -124,11 +124,12 @@ namespace session03_MVC_.PL.Controllers
                 Age = emp.Age,
                 Email = emp.Email,
                 HiringDate = emp.HiringDate,
-                Salary = emp.Salary,
+                Salary = (int)emp.Salary,
                 Gender = emp.Gender,
                 EmployeeType = emp.EmployeeType,
                 IsActive = emp.IsActive,
                 PhoneNumber = emp.PhoneNumber,
+               
             };
             return View(viewEmployee);
         }
@@ -144,7 +145,7 @@ namespace session03_MVC_.PL.Controllers
             if (!ModelState.IsValid)
                 return View(emp);
 
-            // Map VM → DTO (because the service layer expects DTO)
+            // Map VM => DTO (because the service layer expects DTO)
             var dto = new UpdateEmployeeDto()
             {
                 Id = id.Value,

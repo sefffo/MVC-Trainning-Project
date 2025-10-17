@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using IKEA.BLL.Common.Servicies.Attachments;
 using IKEA.BLL.Dto_s.EmployeeDto_s;
 using IKEA.DAL.Models.Employee;
 using IKEA.DAL.Reposatories.EmployeeReposatory;
@@ -14,13 +15,16 @@ namespace IKEA.BLL.Services.Employee
 {
     public class EmployeeService : IEmployeeService
     {
+        private readonly IAttachmentService attachmentService;
+
         public IUnitOfWork unitOfWork { get; }
         public IMapper Mapper { get; }
 
-        public EmployeeService(IUnitOfWork EmpRepo, IMapper mapper)
+        public EmployeeService(IUnitOfWork EmpRepo, IMapper mapper, IAttachmentService attachmentService)
         {
             unitOfWork = EmpRepo;
             Mapper = mapper;
+            this.attachmentService = attachmentService;
         }
 
         public IEnumerable<EmployeeDto> GetAllEmployees()
@@ -55,6 +59,11 @@ namespace IKEA.BLL.Services.Employee
         {
             var emp = Mapper.Map<CreateEmployeeDto, IKEA.DAL.Models.Employee.Employee>(dto);
 
+            if (dto.image is not null)
+            {
+                emp.ImageName = attachmentService.Upload(dto.image, "images");
+            }
+
             emp.updatedBy = 1;
             emp.createdBy = 1;
             emp.CreatedOn = DateTime.Now;
@@ -64,24 +73,79 @@ namespace IKEA.BLL.Services.Employee
             return unitOfWork.Complete();
         }
 
+
         public int UpdateEmployee(UpdateEmployeeDto dto)
         {
-            var emp = Mapper.Map<UpdateEmployeeDto, IKEA.DAL.Models.Employee.Employee>(dto);
+            // 1️ Get existing entity from DB
+            var existingEmp = unitOfWork.employeeRepo.GetById(dto.Id);
+            if (existingEmp == null)
+                return 0;
 
-            emp.updatedBy = 1;
-            emp.UpdatedOn = DateTime.Now;
+            // 2️ Map only changed fields onto the existing entity
+            Mapper.Map(dto, existingEmp);
 
-           unitOfWork.employeeRepo.Update(emp);
+            // 3️ Handle image if provided
+            //if (dto.image is not null)
+            //{
+            //    if (!string.IsNullOrEmpty(existingEmp.ImageName))
+            //    {
+            //        var filepath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "files", "images", existingEmp.ImageName);
+            //        attachmentService.Delete(filepath);
+            //    }
+
+            //    existingEmp.ImageName = attachmentService.Upload(dto.image, "images");
+            //}
+
+            // 4️ Update audit fields
+            existingEmp.updatedBy = 1;
+            existingEmp.UpdatedOn = DateTime.Now;
+
+            // 5️ Save changes
+            unitOfWork.employeeRepo.Update(existingEmp);
             return unitOfWork.Complete();
         }
 
+
+        //public int UpdateEmployee(UpdateEmployeeDto dto)
+        //{
+        //    var emp = Mapper.Map<UpdateEmployeeDto, IKEA.DAL.Models.Employee.Employee>(dto);
+
+        //    //if (dto.image is not null)
+        //    //{
+        //    //    if (emp.ImageName is not null)
+        //    //    {
+        //    //        var filepath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "files", "images", emp.ImageName);
+        //    //        attachmentService.Delete(filepath);
+
+        //    //    }
+        //    //    emp.ImageName = attachmentService.Upload(dto.image, "images");
+        //    //}
+
+
+        //    emp.updatedBy = 1;
+        //    emp.UpdatedOn = DateTime.Now;
+
+        //    unitOfWork.employeeRepo.Update(emp);
+        //    return unitOfWork.Complete();
+        //}
+
         public int DeleteEmployee(int? id)
         {
+            var employee = unitOfWork.employeeRepo.GetById(id.Value);
+
             if (id is not null)
             {
+
+                if(employee.ImageName is not null)
+                {
+                    var filepath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "files", "images", employee.ImageName);
+                    attachmentService.Delete(filepath);
+
+                }
+
+
                 unitOfWork.employeeRepo.Delete(id.Value);
                 return unitOfWork.Complete();
-
             }
             else return 0;
         }

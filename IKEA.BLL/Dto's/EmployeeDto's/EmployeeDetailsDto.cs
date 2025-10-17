@@ -24,6 +24,7 @@ namespace IKEA.BLL.Dto_s.EmployeeDto_s
         public int updatedBy { get; set; }
         public DateTime UpdatedOn { get; set; }
 
+        public string ImageName { get; set; }
 
         //relation
         public string DepartmentName { get; set; }
