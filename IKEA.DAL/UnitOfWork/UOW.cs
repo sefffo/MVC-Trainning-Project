@@ -1,6 +1,7 @@
 ﻿using IKEA.DAL.Contexts;
 using IKEA.DAL.Reposatories.DepartmentReposatory;
 using IKEA.DAL.Reposatories.EmployeeReposatory;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +27,7 @@ namespace IKEA.DAL.UnitOfWork
 
         public int Complete()
         {
-            throw new NotImplementedException();
+            return context.SaveChanges();
         }
         //fe nas bt7ot fun despose w dah msh sa7777 3shan e7na bnst5dm dependancy injection
     }
