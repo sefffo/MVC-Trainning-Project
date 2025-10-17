@@ -38,22 +38,24 @@ namespace IKEA.DAL.Reposatories.GenericReposatory
             var item = _context.Set<TEntity>().Find(id);
             return item;
         }
-        public int Add(TEntity item)
+        public void Add(TEntity item)
         {
             _context.Set<TEntity>().Add(item);
-            return _context.SaveChanges();//return number of affected rows
+            //return _context.SaveChanges();//return number of affected rows
+            
+
         }
 
-        public int Update(TEntity item)
+        public void Update(TEntity item)
         {
             _context.Set<TEntity>().Update(item);
-            return _context.SaveChanges();//return number of affected rows
+            //return _context.SaveChanges();//return number of affected rows
         }
 
-        public int Delete(int id)
+        public void Delete(int id)
         {
             _context.Set<TEntity>().Remove(GetById(id));
-            return _context.SaveChanges();//return number of affected rows
+            //return _context.SaveChanges();//return number of affected rows
         }
 
 

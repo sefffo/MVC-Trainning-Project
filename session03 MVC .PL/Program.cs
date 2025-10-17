@@ -4,9 +4,11 @@ using IKEA.BLL.Services.Employee;
 using IKEA.DAL.Contexts;
 using IKEA.DAL.Reposatories.DepartmentReposatory;
 using IKEA.DAL.Reposatories.EmployeeReposatory;
+using IKEA.DAL.UnitOfWork;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using Microsoft.Identity.Client;
 
 namespace session03_MVC_.PL
 {
@@ -106,14 +108,18 @@ namespace session03_MVC_.PL
                 options.UseLazyLoadingProxies();                                                                       //it will be more flexiable too for test and production 
             });
 
-            builder.Services.AddScoped<IDepartmentRepo, DepartmentRepo>();//inject the repo to be used in the service layer
+
+            builder.Services.AddScoped<IUnitOfWork, UOW>();
+
+            //we just commented this because we work with a uow oattern inwhich its not resonable to do it my self in the program
+            //builder.Services.AddScoped<IDepartmentRepo, DepartmentRepo>();//inject the repo to be used in the service layer
             //ay 7d ytlob IDepartmentRepo 5leh ygeb DepartmentRepo
 
 
             builder.Services.AddScoped<IDepartmentService, DepartmentServices>();//inject the service to be used in the controller layer
 
-
-            builder.Services.AddScoped<IEmployeeRepo, EmployeeRepo>();//inject the repo to be used in the service layer
+            //we just commented this because we work with a uow oattern inwhich its not resonable to do it my self in the program
+            //builder.Services.AddScoped<IEmployeeRepo, EmployeeRepo>();//inject the repo to be used in the service layer
             //ay 7d ytlob IDepartmentRepo 5leh ygeb EmployeeRepo
             builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 

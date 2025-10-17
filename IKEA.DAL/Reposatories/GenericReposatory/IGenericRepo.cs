@@ -1,5 +1,6 @@
 ﻿using IKEA.DAL.Models;
 using IKEA.DAL.Models.Employee;
+using IKEA.DAL.UnitOfWork;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,9 +13,9 @@ namespace IKEA.DAL.Reposatories.GenericReposatory
     {
         public IQueryable<TEntity> GetAll(bool withTracking = false);
         public TEntity GetById(int id);
-        public int Add(TEntity item);
-        public int Update(TEntity item);
-        public int Delete(int id);
+        public void Add(TEntity item);
+        public void Update(TEntity item);
+        public void Delete(int id);
 
 
         public IEnumerable<TEntity> GetAllEnum();

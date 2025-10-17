@@ -2,6 +2,7 @@
 using IKEA.BLL.Dto_s.EmployeeDto_s;
 using IKEA.DAL.Models.Employee;
 using IKEA.DAL.Reposatories.EmployeeReposatory;
+using IKEA.DAL.UnitOfWork;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,28 +14,28 @@ namespace IKEA.BLL.Services.Employee
 {
     public class EmployeeService : IEmployeeService
     {
-        public IEmployeeRepo _EmpRepo { get; }
+        public IUnitOfWork unitOfWork { get; }
         public IMapper Mapper { get; }
 
-        public EmployeeService(IEmployeeRepo EmpRepo, IMapper mapper)
+        public EmployeeService(IUnitOfWork EmpRepo, IMapper mapper)
         {
-            _EmpRepo = EmpRepo;
+            unitOfWork = EmpRepo;
             Mapper = mapper;
         }
 
         public IEnumerable<EmployeeDto> GetAllEmployees()
         {
-            var Employees = _EmpRepo.GetAll().ToList();//bmshy haly 
+            var Employees = unitOfWork.employeeRepo.GetAll().ToList();//bmshy haly 
             var mappedEmployees = Mapper.Map<IEnumerable<IKEA.DAL.Models.Employee.Employee>, IEnumerable<EmployeeDto>>(Employees);//ostor yarb
             return mappedEmployees;
 
-            //var Result = _EmpRepo.GetAllEnum().Where(x => x.isDeleted != true).Select(e => new EmployeeDto
+            //var Result = unitOfWork.GetAllEnum().Where(x => x.isDeleted != true).Select(e => new EmployeeDto
             //{
             //    Id = e.id,
             //    Name = e.Name,
             //    Age = e.Age,
             //}); //the where will run in the excution time it will filter after it feactches all the employeees 
-            //var Result = _EmpRepo.GetAllQuer().Where(x => x.isDeleted != true).Select(e => new EmployeeDto
+            //var Result = unitOfWork.GetAllQuer().Where(x => x.isDeleted != true).Select(e => new EmployeeDto
             //{
             //    Id = e.id,
             //    Name = e.Name,
@@ -45,7 +46,7 @@ namespace IKEA.BLL.Services.Employee
 
         public EmployeeDetailsDto GetEmployeeById(int id)
         {
-            var Employe = _EmpRepo.GetById(id);
+            var Employe = unitOfWork.employeeRepo.GetById(id);
             var mappedEmployee = Mapper.Map<IKEA.DAL.Models.Employee.Employee, EmployeeDetailsDto>(Employe);
             return mappedEmployee;
         }
@@ -59,8 +60,8 @@ namespace IKEA.BLL.Services.Employee
             emp.CreatedOn = DateTime.Now;
             emp.UpdatedOn = DateTime.Now;
 
-            var res = _EmpRepo.Add(emp);
-            return res;
+            unitOfWork.employeeRepo.Add(emp);
+            return unitOfWork.Complete();
         }
 
         public int UpdateEmployee(UpdateEmployeeDto dto)
@@ -70,15 +71,16 @@ namespace IKEA.BLL.Services.Employee
             emp.updatedBy = 1;
             emp.UpdatedOn = DateTime.Now;
 
-            var res = _EmpRepo.Update(emp);
-            return res;
+           unitOfWork.employeeRepo.Update(emp);
+            return unitOfWork.Complete();
         }
 
         public int DeleteEmployee(int? id)
         {
             if (id is not null)
             {
-                return _EmpRepo.Delete(id.Value);
+                unitOfWork.employeeRepo.Delete(id.Value);
+                return unitOfWork.Complete();
 
             }
             else return 0;
@@ -88,7 +90,7 @@ namespace IKEA.BLL.Services.Employee
         {
 
 
-            var Employees = _EmpRepo.GetAll(searchValue).ToList();//bmshy haly 
+            var Employees = unitOfWork.employeeRepo.GetAll(searchValue).ToList();//bmshy haly 
             var mappedEmployees = Mapper.Map<IEnumerable<IKEA.DAL.Models.Employee.Employee>, IEnumerable<EmployeeDto>>(Employees);//ostor yarb
             return mappedEmployees;
 

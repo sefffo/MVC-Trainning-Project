@@ -1,6 +1,7 @@
 ﻿using IKEA.BLL.Dto_s.DepartmentsDto_s;
 using IKEA.BLL.Factories.DepartmentFactory;
 using IKEA.DAL.Reposatories.DepartmentReposatory;
+using IKEA.DAL.UnitOfWork;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,14 +12,17 @@ namespace IKEA.BLL.Services.Department
 {
     public class DepartmentServices:IDepartmentService
     {
+        private readonly IUnitOfWork unitOfWork;
+
         //u must get the repo in the service and we cant do that manully so we use dependency injection
 
         //DepartmentRepo d = new DepartmentRepo(); => because u created a pattern so u can get the repo directly
 
-        private readonly IDepartmentRepo _DeptRepo;
-        public DepartmentServices(IDepartmentRepo DeptRepo)//inject the repo so the clr will create it for us
+
+        public DepartmentServices(IUnitOfWork unitOfWork)//inject the repo so the clr will create it for us
         {
-            _DeptRepo = DeptRepo;
+            this.unitOfWork = unitOfWork;
+            //unitOfWork = DeptRepo;
         }
         // Controller => service => repo => context (Mbd2 sabbbbeeeeeeetttt)
 
@@ -27,7 +31,7 @@ namespace IKEA.BLL.Services.Department
         public IEnumerable<DepartmentDto> GetAllDepartments()
         {
              
-           var departments = _DeptRepo.GetAll().ToList();
+           var departments = unitOfWork.departmentRepo.GetAll().ToList();
             // manually mapping
             //var mapppedDepartments = departments.Select(d => new DepartmentDto
             //{
@@ -56,7 +60,7 @@ namespace IKEA.BLL.Services.Department
         public DepartmentDetailsDto GetDepartmentById(int id)
         {
 
-            var department = _DeptRepo.GetById(id);
+            var department = unitOfWork.departmentRepo.GetById(id);
 
             if(department is null)
             {
@@ -77,18 +81,20 @@ namespace IKEA.BLL.Services.Department
         public int AddDepartment(CreateDepartmentDto department )
         {
             var dept = department.ToDepartment();//using the opposite method in the factory
-            return _DeptRepo.Add(dept); // return the id of the added department how many rows affected
-
+             unitOfWork.departmentRepo.Add(dept); // return the id of the added department how many rows affected
+            return unitOfWork.Complete();
         }
 
         public int UpdateDepartment(UpdatedDepartmentDto department)
         {
             var dept = department.FromUpdatedDeptDtoToDepartment();//using the opposite method in the factory
-            return _DeptRepo.Update(dept); // return the id of the added department and how many rows affected
+            unitOfWork.departmentRepo.Update(dept); // return the id of the added department and how many rows affected
+            return unitOfWork.Complete();
         }
         public int DeleteDepartment(int id)
         {
-            return _DeptRepo.Delete(id); // return the id of the added department and how many rows affected
+             unitOfWork.departmentRepo.Delete(id);
+            return unitOfWork.Complete(); // return the id of the added department and how many rows affected
         }
     }
 }
