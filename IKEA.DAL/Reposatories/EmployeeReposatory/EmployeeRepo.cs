@@ -26,5 +26,15 @@ namespace IKEA.DAL.Reposatories.EmployeeReposatory
             _context = Context;
         }
 
+        public IEnumerable<Employee> GetAll(string? seacrchValue)
+        {
+            if(seacrchValue is null )
+            {
+                return GetAll();
+            }
+            var Result = _context.Employees.Where(e => e.Name.Trim().ToLower().Contains(seacrchValue.Trim().ToLower()));
+
+            return Result;
+        }
     }
 }

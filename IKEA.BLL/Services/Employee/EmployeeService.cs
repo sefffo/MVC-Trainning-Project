@@ -16,7 +16,7 @@ namespace IKEA.BLL.Services.Employee
         public IEmployeeRepo _EmpRepo { get; }
         public IMapper Mapper { get; }
 
-        public EmployeeService(IEmployeeRepo EmpRepo,IMapper mapper) 
+        public EmployeeService(IEmployeeRepo EmpRepo, IMapper mapper)
         {
             _EmpRepo = EmpRepo;
             Mapper = mapper;
@@ -45,19 +45,19 @@ namespace IKEA.BLL.Services.Employee
 
         public EmployeeDetailsDto GetEmployeeById(int id)
         {
-            var Employe= _EmpRepo.GetById(id);
-            var mappedEmployee=Mapper.Map<IKEA.DAL.Models.Employee.Employee,EmployeeDetailsDto>(Employe);
+            var Employe = _EmpRepo.GetById(id);
+            var mappedEmployee = Mapper.Map<IKEA.DAL.Models.Employee.Employee, EmployeeDetailsDto>(Employe);
             return mappedEmployee;
         }
 
         public int AddEmployee(CreateEmployeeDto dto)
         {
-            var emp = Mapper.Map<CreateEmployeeDto,IKEA.DAL.Models.Employee.Employee>(dto);
+            var emp = Mapper.Map<CreateEmployeeDto, IKEA.DAL.Models.Employee.Employee>(dto);
 
             emp.updatedBy = 1;
             emp.createdBy = 1;
-            emp.CreatedOn= DateTime.Now;
-            emp.UpdatedOn= DateTime.Now;
+            emp.CreatedOn = DateTime.Now;
+            emp.UpdatedOn = DateTime.Now;
 
             var res = _EmpRepo.Add(emp);
             return res;
@@ -76,7 +76,7 @@ namespace IKEA.BLL.Services.Employee
 
         public int DeleteEmployee(int? id)
         {
-            if(id is not null)
+            if (id is not null)
             {
                 return _EmpRepo.Delete(id.Value);
 
@@ -84,5 +84,16 @@ namespace IKEA.BLL.Services.Employee
             else return 0;
         }
 
+        public IEnumerable<EmployeeDto> GetEmployees(string? searchValue)
+        {
+
+
+            var Employees = _EmpRepo.GetAll(searchValue).ToList();//bmshy haly 
+            var mappedEmployees = Mapper.Map<IEnumerable<IKEA.DAL.Models.Employee.Employee>, IEnumerable<EmployeeDto>>(Employees);//ostor yarb
+            return mappedEmployees;
+
+
+
+        }
     }
 }

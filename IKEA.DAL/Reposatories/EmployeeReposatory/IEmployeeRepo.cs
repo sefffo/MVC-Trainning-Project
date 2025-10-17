@@ -10,7 +10,7 @@ namespace IKEA.DAL.Reposatories.EmployeeReposatory
 {
     public interface IEmployeeRepo:IGenericRepo<Employee>
     {
-       
+        public IEnumerable<Employee> GetAll(string? seacrValue);
     }
 
    

@@ -6,6 +6,7 @@ using IKEA.DAL.Models.Employee;
 using IKEA.DAL.Reposatories.EmployeeReposatory;
 using Microsoft.AspNetCore.Mvc;
 using session03_MVC_.PL.ViewModels.DepartmentsVms;
+using System.Buffers;
 
 
 namespace session03_MVC_.PL.Controllers
@@ -24,10 +25,21 @@ namespace session03_MVC_.PL.Controllers
             this.webHost = webHost;
             //deptService = DeptService;
         }
-        public IActionResult Index()
+        public IActionResult Index(string? searchValue)
         {
-            var Employees = service.GetAllEmployees();
-            return View(Employees);
+            if(searchValue is null)
+            {
+
+                var Employees = service.GetAllEmployees();
+                return View(Employees);
+            }
+            else
+            {
+              ;
+                return View(service.GetEmployees(searchValue));
+            }
+
+
         }
 
         [HttpGet]
