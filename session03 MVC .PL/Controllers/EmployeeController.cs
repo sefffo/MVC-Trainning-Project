@@ -4,6 +4,7 @@ using IKEA.BLL.Services.Department;
 using IKEA.BLL.Services.Employee;
 using IKEA.DAL.Models.Employee;
 using IKEA.DAL.Reposatories.EmployeeReposatory;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using session03_MVC_.PL.ViewModels.DepartmentsVms;
 using System.Buffers;
@@ -11,6 +12,7 @@ using System.Buffers;
 
 namespace session03_MVC_.PL.Controllers
 {
+    [Authorize]
     public class EmployeeController : Controller
     {
         private readonly IEmployeeService service;
@@ -35,7 +37,7 @@ namespace session03_MVC_.PL.Controllers
             }
             else
             {
-              ;
+              
                 return View(service.GetEmployees(searchValue));
             }
 

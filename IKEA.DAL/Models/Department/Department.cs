@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using  IKEA.DAL.Models.Employee;
+using IKEA.DAL.Models.Employee;
 
 namespace IKEA.DAL.Models.Department
 {
-    public class Department:BaseEntity
+    public class Department : BaseEntity
     {
         public string Name { get; set; }
         public string? Description { get; set; }

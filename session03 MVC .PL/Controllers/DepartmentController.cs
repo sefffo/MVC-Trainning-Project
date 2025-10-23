@@ -1,12 +1,14 @@
 ﻿using Humanizer;
 using IKEA.BLL.Dto_s.DepartmentsDto_s;
 using IKEA.BLL.Services.Department;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.Blazor;
 using session03_MVC_.PL.ViewModels.DepartmentsVms;
 
 namespace session03_MVC_.PL.Controllers
 {
+    [Authorize]
     public class DepartmentController : Controller
     {
 

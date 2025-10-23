@@ -3,11 +3,15 @@ using IKEA.BLL.Common.Servicies.Attachments;
 using IKEA.BLL.Services.Department;
 using IKEA.BLL.Services.Employee;
 using IKEA.DAL.Contexts;
+using IKEA.DAL.Models.Auth;
 using IKEA.DAL.Reposatories.DepartmentReposatory;
 using IKEA.DAL.Reposatories.EmployeeReposatory;
 using IKEA.DAL.UnitOfWork;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.Identity.Client;
 
@@ -125,8 +129,34 @@ namespace session03_MVC_.PL
             builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 
 
+
+            //3shan asm7 el DI
+            //lazem t3ml create w a7dd el Context 
+            builder.Services.AddIdentity<AppUser, IdentityRole>(
+                //Options=>Options.Password.RequireNonAlphanumeric=true or false 
+                )
+                            .AddEntityFrameworkStores<APPDbContext>();
+
+
+
+
             builder.Services.AddScoped<IAttachmentService, Attachment>();
             builder.Services.AddAutoMapper(m => m.AddMaps(typeof(ProjectMapperProfile).Assembly));
+
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(
+                options=>
+                {
+                    options.LoginPath = "/Auth/Login";
+                    options.LogoutPath = "/Auth/Logout";
+                    options.AccessDeniedPath = "/Auth/AccessDenied";
+                    options.ExpireTimeSpan = TimeSpan.FromHours(2);
+                    //options.SlidingExpiration = true;
+                    //options.Cookie.HttpOnly = true;
+                    ////options.Cookie.Name = "IKEAAuthCookie";
+                    //options.Cookie.SecurePolicy = Microsoft.AspNetCore.Http.CookieSecurePolicy.Always;
+                }
+
+                );
 
             var app = builder.Build();
 
@@ -141,6 +171,9 @@ namespace session03_MVC_.PL
             app.UseHttpsRedirection();
             app.UseRouting();
 
+
+            app.UseAuthentication();//authenticaion
+            app.UseAuthorization();//authorization
 
             app.UseStaticFiles();//files
             app.MapControllerRoute(

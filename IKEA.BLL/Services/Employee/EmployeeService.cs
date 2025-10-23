@@ -20,9 +20,9 @@ namespace IKEA.BLL.Services.Employee
         public IUnitOfWork unitOfWork { get; }
         public IMapper Mapper { get; }
 
-        public EmployeeService(IUnitOfWork EmpRepo, IMapper mapper, IAttachmentService attachmentService)
+        public EmployeeService(IUnitOfWork unitofWork, IMapper mapper, IAttachmentService attachmentService)
         {
-            unitOfWork = EmpRepo;
+            unitOfWork = unitofWork;
             Mapper = mapper;
             this.attachmentService = attachmentService;
         }
